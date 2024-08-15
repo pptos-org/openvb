@@ -21,7 +21,7 @@ jobs:
 
       - name: Build openvb for Linux
         run: |
-          build.sh build_native
+          ./build.sh build_native
         shell: bash
 
       - name: Upload Binary
