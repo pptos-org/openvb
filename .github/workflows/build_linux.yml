@@ -29,4 +29,4 @@ jobs:
         with:
           artifacts: "./bin/openvb-*"
           allowUpdates: true
-          tag: "aplha"
+          tag: "alpha"
