@@ -4,7 +4,13 @@ architecture=$(uname -m) # Get the architecture
 os=$(uname -s) # Get the OS
 os=$(echo $os | tr '[:upper:]' '[:lower:]') # convert os to lowercase
 
+get_deps()
+{
+    dart pub get
+}
+
 init_webdev() {
+    get_deps
     dart pub global activate webdev
     export PATH="$PATH":"$HOME/.pub-cache/bin"
 }
@@ -23,12 +29,14 @@ build_web()
 
 build_native()
 {
+    get_deps
     ehco "Building for $os-$architecture"
     sh -c "dart compile exe bin/openvb.dart -o bin/openvb-$os-$architecture"
 }
 
 run_native()
 {
+    get_deps
     sh -c "dart bin/openvb.dart"
 }
 
