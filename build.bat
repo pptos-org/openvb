@@ -5,7 +5,7 @@ set ARCH=%PROCESSOR_ARCHITECTURE%
 
 :: Replace "AMD64" with "x64"
 if "%ARCH%"=="AMD64" (
-    set ARCH=x64
+    set ARCH=x86_64
 )
 
 :: Replace "x86" with "x86"

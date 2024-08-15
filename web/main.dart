@@ -13,11 +13,27 @@ Const c As Integer = 8 + b
 Const d As Integer = c
  */
 
+final editor = Editor();
+
 void main() {
-  final now = DateTime.now();
-  final editor = Editor();
+  final runCodeButton =
+      web.document.querySelector('#run-code') as web.HTMLDivElement;
+  final infoBar = web.document.querySelector('#debugger-compile-time')
+      as web.HTMLDivElement;
+
+  runCodeButton.onClick.listen((event) {
+    var compileTime = DateTime.now().millisecondsSinceEpoch;
+    runCode();
+    var runTime = DateTime.now().millisecondsSinceEpoch;
+    infoBar.innerText = 'Compile Time: ${runTime - compileTime}ms';
+  });
+
   editor.setCode(
       'Const a As Integer = 5\nConst b = a + a + 8 + (5 + 8) * 10\nConst c As Integer = 8 + b\nConst d As Integer = c');
+}
+
+void runCode() {
+  final editor = Editor();
   final debugger = Debugger();
   debugger.print('OpenVisualBasic $version - By Quinten Van Damme');
 

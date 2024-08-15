@@ -63,6 +63,28 @@ header img {
     outline: none;
 }
 
+#debugger-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--secondary-color);
+}
+
+#toolbar {
+    width: 100%;
+    height: 40px;
+}
+
+#toolbar .material-symbols-outlined {
+    height: 80%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#toolbar .material-symbols-outlined:hover {
+    background: var(--tertiary-color);
+}
+
 #debugger {
     display: flex;
     flex-direction: column;
@@ -82,6 +104,17 @@ header img {
     margin: 0;
     width: fit-content;
     padding-right: 30px;
+}
+#debugger-infobar {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    width: 100%;
+    height: 30px;
+}
+
+#debugger-infobar p {
+    margin: 0;
+    padding: 5px;
 }
 
 #debugger-content {
