@@ -30,7 +30,7 @@ build_web()
 build_native()
 {
     get_deps
-    ehco "Building for $os-$architecture"
+    echo "Building for $os-$architecture"
     sh -c "dart compile exe bin/openvb.dart -o bin/openvb-$os-$architecture"
 }
 
