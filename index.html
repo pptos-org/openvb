@@ -11,6 +11,10 @@
         />
         <title>OpenVB Playground</title>
         <link rel="stylesheet" href="styles.css" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
     </head>
 
     <body>
@@ -22,9 +26,19 @@
         </header>
         <div id="content">
             <textarea id="code"></textarea>
-            <div id="debugger">
-                <div id="debugger-bar"><p>debugger</p></div>
-                <div id="debugger-content"></div>
+            <div id="debugger-wrapper">
+                <div id="toolbar">
+                    <span id="run-code" class="material-symbols-outlined"
+                        >directions_run</span
+                    >
+                </div>
+                <div id="debugger">
+                    <div id="debugger-bar"><p>debugger</p></div>
+                    <div id="debugger-content"></div>
+                    <div id="debugger-infobar">
+                        <p id="debugger-compile-time"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
