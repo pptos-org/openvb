@@ -24,7 +24,7 @@ run_web()
 build_web()
 {
     init_webdev
-    sh -c "webdev build"
+    sh -c "webdev build --output=web/output"
 }
 
 build_native()
