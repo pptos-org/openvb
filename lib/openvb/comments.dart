@@ -14,7 +14,7 @@ String removeCommentsFromSourceCode(String text) {
     }
 
     if (lines[i].contains("'")) {
-      if (lines[i].endsWith(' _\r')) {
+      if (lines[i].endsWith(' _\r') || lines[i].endsWith(' _\n')) {
         isCommend = true;
       } else {
         isCommend = false;

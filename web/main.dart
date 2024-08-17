@@ -5,6 +5,7 @@ import 'package:openvb/openvb/enviroment.dart';
 import 'package:openvb/openvb/values.dart';
 import 'package:openvb/openvb/interpreter.dart';
 import 'package:openvb/constants.dart';
+import 'package:openvb/console/console.dart';
 
 /*
 Const a As Integer = 5
@@ -14,6 +15,7 @@ Const d As Integer = c
  */
 
 final editor = Editor();
+final console = Console();
 
 void main() {
   final runCodeButton =
@@ -34,8 +36,7 @@ void main() {
 
 void runCode() {
   final editor = Editor();
-  final debugger = Debugger();
-  debugger.print('OpenVisualBasic $version - By Quinten Van Damme');
+  console.printMessage('OpenVisualBasic $version - By Quinten Van Damme');
 
   String sourceCode = editor.getCode();
 
@@ -45,7 +46,7 @@ void runCode() {
 
   var result = evaluate(program, env);
 
-  debugger.print(result.toString());
+  console.printMessage(result.toString());
 }
 
 class Editor {
@@ -61,18 +62,5 @@ class Editor {
 
   String getCode() {
     return editor.value;
-  }
-}
-
-class Debugger {
-  late web.HTMLDivElement debugger;
-
-  Debugger() {
-    debugger =
-        web.document.querySelector('#debugger-content') as web.HTMLDivElement;
-  }
-
-  void print(String message) {
-    debugger.innerText += '$message\n';
   }
 }

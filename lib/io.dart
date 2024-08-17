@@ -1,9 +1,11 @@
 import 'dart:io';
-import 'package:openvb/error.dart';
+import 'package:openvb/console/console.dart';
+
+Console console = Console();
 
 String readFile(String path) {
   if (!File(path).existsSync()) {
-    printError('File not found: $path');
+    console.printError('File not found: $path');
     throw Exception();
   }
 

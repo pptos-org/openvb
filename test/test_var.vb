@@ -1,13 +1,9 @@
-' Define test variable
+' This is a comment
 Dim test As Integer
-' Set test variable equal to 1
 test = 1
-' Define test2 variable and set it
-Const test2 As Integer = (test + 5) *2  
-' Define test3 variable
+test = test - 5
+Const test2 As Integer = (test + 5) *2
 Dim test3 As Integer
-' comment 1 _
-  comment 2 _
-  comment 3
-' Set test3 variable
 test3 = test + test2
+' test reassign of a constant should fail
+test2 = 5

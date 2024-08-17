@@ -1,8 +1,13 @@
+import 'package:openvb/console/console.dart';
+
+Console console = Console();
+
 enum NodeType {
   stmt,
   program,
   variableDeclaration,
   expr,
+  assignmentExpr,
   binaryExpr,
   identifier,
   numericLiteral,
@@ -52,6 +57,21 @@ class VariableDeclaration extends Stmt {
 
 class Expr extends Stmt {}
 
+class AssignmentExpr extends Expr {
+  NodeType kind = NodeType.assignmentExpr;
+  late Expr assigne;
+  late Expr value;
+
+  AssignmentExpr(this.assigne, this.value);
+
+  @override
+  String toString() {
+    return {"type": "AssignmentExpr", "assigne": assigne, "value": value}
+            .toString() +
+        '\n';
+  }
+}
+
 class BinaryExpr extends Expr {
   NodeType kind = NodeType.binaryExpr;
   late Expr left;
@@ -96,8 +116,8 @@ void main() {
   var program =
       Program([BinaryExpr(NumericLiteral(1), '+', NumericLiteral(2))]);
 
-  print(program.stmts[0].kind);
-  print((program.stmts[0] as BinaryExpr).left.kind);
-  print((program.stmts[0] as BinaryExpr).right.kind);
-  print((program.stmts[0] as BinaryExpr).op);
+  console.printMessage(program.stmts[0].kind.toString());
+  console.printMessage((program.stmts[0] as BinaryExpr).left.kind.toString());
+  console.printMessage((program.stmts[0] as BinaryExpr).right.kind.toString());
+  console.printMessage((program.stmts[0] as BinaryExpr).op);
 }

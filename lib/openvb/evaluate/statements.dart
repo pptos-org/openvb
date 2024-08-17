@@ -2,6 +2,9 @@ import 'package:openvb/openvb/interpreter.dart';
 import 'package:openvb/openvb/enviroment.dart';
 import 'package:openvb/openvb/values.dart';
 import 'package:openvb/openvb/ast.dart';
+import 'package:openvb/console/console.dart';
+
+Console console = Console();
 
 RuntimeVal evaluateProgram(Program program, Enviroment env) {
   RuntimeVal lastEvaluated = NullVal();
@@ -53,6 +56,16 @@ RuntimeVal evaluateBinaryExpr(BinaryExpr binop, Enviroment env) {
 
 RuntimeVal evaluateIdentifier(Identifier identifier, Enviroment env) {
   return env.lookupVar(identifier.symbol);
+}
+
+RuntimeVal evaluateAssignmentExpr(AssignmentExpr assign, Enviroment env) {
+  if (assign.assigne.kind != NodeType.identifier) {
+    console.printError('Invalid assignment');
+    throw Exception();
+  }
+
+  return env.assignVar(
+      (assign.assigne as Identifier).symbol, evaluate(assign.value, env));
 }
 
 RuntimeVal evaluateVariableDeclaration(

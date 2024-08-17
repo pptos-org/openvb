@@ -1,7 +1,9 @@
 import 'package:openvb/openvb/comments.dart';
 import 'package:openvb/openvb/ast.dart';
 import 'package:openvb/openvb/lexer.dart';
-import 'package:openvb/error.dart';
+import 'package:openvb/console/console.dart';
+
+Console console = Console();
 
 class Parser {
   late Tokens tokens;
@@ -32,7 +34,7 @@ class Parser {
     if (at().type == type) {
       return eat();
     } else {
-      printError("$error: Expected $token");
+      console.printError("$error: Expected $token");
       throw Exception();
     }
   }
@@ -62,8 +64,6 @@ class Parser {
         return parseVariableDeclaration();
       case 'CONST':
         return parseConstantDeclaration();
-      case 'IDENTIFIER':
-        return parseVariableDeclaration();
       default:
         return parseExpr();
     }
@@ -85,7 +85,7 @@ class Parser {
       eat();
 
       if (at().type == 'EQUALS') {
-        printError("Unexpected token = after declaration.");
+        console.printError("Unexpected token = after declaration.");
         throw Exception();
       }
 
@@ -106,7 +106,7 @@ class Parser {
     expect("IDENTIFIER", "Expected identifier after declaration.");
 
     if (at().type != 'AS' && at().type != 'EQUALS') {
-      printError("Expected As or = token after declaration.");
+      console.printError("Expected As or = token after declaration.");
       throw ();
     }
 
@@ -124,7 +124,19 @@ class Parser {
   }
 
   Expr parseExpr() {
-    return parseAdditiveExpr();
+    return parseAssignmentExpr();
+  }
+
+  Expr parseAssignmentExpr() {
+    Expr left = parseAdditiveExpr();
+
+    if (at().type == 'EQUALS') {
+      eat();
+      Expr value = parseAssignmentExpr();
+      return AssignmentExpr(left, value);
+    }
+
+    return left;
   }
 
   Expr parseAdditiveExpr() {
@@ -158,7 +170,7 @@ class Parser {
     Token token = at();
     String tokenType = token.type;
 
-    print('Parsing primary expression: $tokenType');
+    console.printMessage('Parsing primary expression: $tokenType');
 
     switch (tokenType) {
       case 'DIM':
@@ -183,7 +195,7 @@ class Parser {
         return expr;
 
       default:
-        printWarning('Unexpected token: $token');
+        console.printWarning('Unexpected token: $token');
         next();
         return Expr();
 
