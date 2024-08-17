@@ -123,3 +123,15 @@ header img {
     height: 100%;
     color: var(--background-color);
 }
+
+#debugger-content p {
+    margin: 0;
+}
+
+#debugger-content .error {
+    color: red;
+}
+
+#debugger-content .warning {
+    color: orange;
+}
