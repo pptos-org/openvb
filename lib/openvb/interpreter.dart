@@ -24,6 +24,5 @@ RuntimeVal evaluate(Stmt astNode, Enviroment env) {
       return evaluateVariableDeclaration(astNode as VariableDeclaration, env);
     default:
       console.printError('Unknown AST node type $astNode');
-      throw Exception();
   }
 }

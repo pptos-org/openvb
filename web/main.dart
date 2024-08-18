@@ -45,16 +45,13 @@ void main() {
 }
 
 void runCode() {
-  final editor = Editor();
   console.printMessage('OpenVisualBasic $version - By Quinten Van Damme');
-
-  String sourceCode = editor.getCode();
 
   final env = Enviroment();
   Parser parser = Parser();
+  String sourceCode = editor.getCode();
   Program program = parser.produceAST(sourceCode);
-
-  var result = evaluate(program, env);
+  RuntimeVal result = evaluate(program, env);
 
   console.printMessage(result.toString());
 }

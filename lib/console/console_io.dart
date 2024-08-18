@@ -1,6 +1,9 @@
+import 'dart:io';
+
 class Console {
-  void printError(String message) {
+  Never printError(String message) {
     print('\x1B[31m$message\x1B[0m');
+    exit(1);
   }
 
   void printWarning(String message) {

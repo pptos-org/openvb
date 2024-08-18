@@ -61,7 +61,6 @@ RuntimeVal evaluateIdentifier(Identifier identifier, Enviroment env) {
 RuntimeVal evaluateAssignmentExpr(AssignmentExpr assign, Enviroment env) {
   if (assign.assigne.kind != NodeType.identifier) {
     console.printError('Invalid assignment');
-    throw Exception();
   }
 
   return env.assignVar(

@@ -1,5 +1,5 @@
 class Console {
-  void printError(String message) {
+  Never printError(String message) {
     throw UnsupportedError('Cannot print error in console');
   }
 

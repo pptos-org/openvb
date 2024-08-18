@@ -17,7 +17,6 @@ class Enviroment {
     if ((_variables.containsKey(name) && isConstant) ||
         (_constants.containsKey(name) && isConstant)) {
       console.printError('Variable $name already declared');
-      throw Exception();
     }
 
     if (isConstant) {
@@ -34,7 +33,6 @@ class Enviroment {
 
     if (env._constants.containsKey(name)) {
       console.printError('Cannot reassign constant "$name"');
-      throw Exception();
     }
 
     env._variables[name] = value;
@@ -50,7 +48,6 @@ class Enviroment {
       return env._variables[name] as RuntimeVal;
     } else {
       console.printError('Variable "$name" not found');
-      throw Exception();
     }
   }
 
@@ -63,7 +60,6 @@ class Enviroment {
 
     if (_parent == null) {
       console.printError('Variable "$name" not found');
-      throw Exception();
     }
 
     return _parent.reslove(name);

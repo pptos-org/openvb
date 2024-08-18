@@ -8,12 +8,13 @@ class Console {
         web.document.querySelector('#debugger-content') as web.HTMLDivElement;
   }
 
-  void printError(String message) {
+  Never printError(String message) {
     var div = web.HTMLParagraphElement();
     div.text = message;
     div.className = 'error';
     debugger.append(div);
     scrollToEnd();
+    throw Exception(message);
   }
 
   void printWarning(String message) {

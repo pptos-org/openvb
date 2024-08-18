@@ -35,7 +35,6 @@ class Parser {
       return eat();
     } else {
       console.printError("$error: Expected $token");
-      throw Exception();
     }
   }
 
@@ -86,7 +85,6 @@ class Parser {
 
       if (at().type == 'EQUALS') {
         console.printError("Unexpected token = after declaration.");
-        throw Exception();
       }
 
       return VariableDeclaration(false, identifier, null);
@@ -107,7 +105,6 @@ class Parser {
 
     if (at().type != 'AS' && at().type != 'EQUALS') {
       console.printError("Expected As or = token after declaration.");
-      throw ();
     }
 
     if (at().type == 'EQUALS') {
@@ -198,8 +195,6 @@ class Parser {
         console.printWarning('Unexpected token: $token');
         next();
         return Expr();
-
-      //exit(0);
     }
   }
 }

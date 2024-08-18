@@ -34,12 +34,6 @@ build_native()
     sh -c "dart compile exe bin/openvb.dart -o bin/openvb-$os-$architecture"
 }
 
-run_native()
-{
-    get_deps
-    sh -c "dart bin/openvb.dart"
-}
-
 case "$1" in
     run_web)
         run_web
@@ -50,11 +44,8 @@ case "$1" in
     build_native)
         build_native
         ;;
-    run_native)
-        run_native
-        ;;
     *)
-        echo "Usage: $0 {run_web|build_web|build_native|run_native}"
+        echo "Usage: $0 {run_web|build_web|build_native}"
         exit 1
         ;;
 esac
