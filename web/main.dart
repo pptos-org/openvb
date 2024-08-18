@@ -20,14 +20,24 @@ final console = Console();
 void main() {
   final runCodeButton =
       web.document.querySelector('#run-code') as web.HTMLDivElement;
+  final ereaseCodeButton =
+      web.document.querySelector('#erease-code') as web.HTMLDivElement;
   final infoBar = web.document.querySelector('#debugger-compile-time')
       as web.HTMLDivElement;
 
   runCodeButton.onClick.listen((event) {
     var compileTime = DateTime.now().millisecondsSinceEpoch;
-    runCode();
+    try {
+      runCode();
+    } catch (e) {
+      print(e);
+    }
     var runTime = DateTime.now().millisecondsSinceEpoch;
     infoBar.innerText = 'Compile Time: ${runTime - compileTime}ms';
+  });
+
+  ereaseCodeButton.onClick.listen((event) {
+    console.clear();
   });
 
   editor.setCode(

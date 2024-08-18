@@ -10,4 +10,12 @@ class Console {
   void printMessage(String message) {
     throw UnsupportedError('Cannot print message in console');
   }
+
+  void clear() {
+    throw UnsupportedError('Cannot clear console');
+  }
+
+  void scrollToEnd() {
+    throw UnsupportedError('Cannot scroll to end in console');
+  }
 }

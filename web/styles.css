@@ -5,6 +5,15 @@
     --header-border: 2px;
     --logo-offset: 80px;
 
+    /* debugger */
+    --debugger-content-padding: 10px;
+    --debugger-bar-height: 45px;
+    --debugger-infobar-height: 30px;
+
+    /* code */
+
+    --code-width: 70vw;
+
     /* content */
 
     --code-width: 70vw;
@@ -51,23 +60,17 @@ header img {
 }
 
 #code {
+    padding: 10px;
     font-family: "Courier New", monospace;
     font-size: 1.2em;
     color: var(--primary-color);
     margin-top: auto;
     height: 100%;
-    width: 70vw;
+    width: var(--code-width);
     border: none;
     border-right: var(--header-border) solid var(--primary-color);
     resize: none;
     outline: none;
-}
-
-#debugger-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    background: var(--secondary-color);
 }
 
 #toolbar {
@@ -85,17 +88,27 @@ header img {
     background: var(--tertiary-color);
 }
 
+#debugger-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: calc(100vw - var(--code-width) - var(--header-border));
+    background: var(--secondary-color);
+}
+
 #debugger {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: calc(
+        100% - var(--debugger-infobar-height) * 2 -
+            var(--debugger-content-padding)
+    );
     background: var(--primary-color);
 }
 
 #debugger-bar {
     width: 100%;
-    height: 25px;
+    height: var(--debugger-bar-height);
     border-bottom: var(--secondary-color) 2px solid;
     color: var(--secondary-color);
 }
@@ -104,12 +117,13 @@ header img {
     margin: 0;
     width: fit-content;
     padding-right: 30px;
+    padding: 10px;
 }
 #debugger-infobar {
     background: var(--secondary-color);
     color: var(--primary-color);
     width: 100%;
-    height: 30px;
+    height: var(--debugger-infobar-height);
 }
 
 #debugger-infobar p {
@@ -118,10 +132,11 @@ header img {
 }
 
 #debugger-content {
-    padding: 10px;
+    padding: var(--debugger-content-padding);
     width: 100%;
     height: 100%;
     color: var(--background-color);
+    overflow-y: scroll;
 }
 
 #debugger-content p {

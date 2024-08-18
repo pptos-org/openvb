@@ -10,4 +10,12 @@ class Console {
   void printMessage(String message) {
     print(message);
   }
+
+  void clear() {
+    print('\x1B[2J\x1B[H');
+  }
+
+  void scrollToEnd() {
+    throw UnsupportedError('Cannot scroll to end in console');
+  }
 }

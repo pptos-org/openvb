@@ -13,6 +13,7 @@ class Console {
     div.text = message;
     div.className = 'error';
     debugger.append(div);
+    scrollToEnd();
   }
 
   void printWarning(String message) {
@@ -20,11 +21,23 @@ class Console {
     div.text = message;
     div.className = 'warning';
     debugger.append(div);
+    scrollToEnd();
   }
 
   void printMessage(String message) {
     var div = web.HTMLParagraphElement();
     div.text = message;
     debugger.append(div);
+    scrollToEnd();
+  }
+
+  void clear() {
+    while (debugger.firstChild != null) {
+      debugger.removeChild(debugger.firstChild!);
+    }
+  }
+
+  void scrollToEnd() {
+    debugger.scrollTop = debugger.scrollHeight;
   }
 }
