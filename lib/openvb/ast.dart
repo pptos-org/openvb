@@ -11,6 +11,7 @@ enum NodeType {
   binaryExpr,
   identifier,
   numericLiteral,
+  booleanLiteral,
   nullLiteral,
 }
 
@@ -18,8 +19,8 @@ class Stmt {
   NodeType kind = NodeType.stmt;
 
   @override
-  String toString() {
-    return {"type": "Stmt", "kind": kind}.toString() + '\n';
+  Map<String, dynamic> toJson() {
+    return {"type": "Stmt", "kind": kind};
   }
 }
 
@@ -31,7 +32,15 @@ class Program extends Stmt {
 
   @override
   String toString() {
-    return {"type": "Program", "stmts": stmts}.toString() + '\n';
+    return toJson().toString();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    List<Map<String, dynamic>> stmtsJson =
+        stmts.map((stmt) => stmt.toJson()).toList();
+
+    return {"type": "Program", "stmts": stmtsJson};
   }
 }
 
@@ -44,18 +53,22 @@ class VariableDeclaration extends Stmt {
   VariableDeclaration(this.isConstant, this.identifier, this.value);
 
   @override
-  String toString() {
+  Map<String, dynamic> toJson() {
     return {
-          "type": "VariableDeclaration",
-          "isConst": isConstant,
-          "identifier": identifier,
-          "value": value
-        }.toString() +
-        '\n';
+      "type": "VariableDeclaration",
+      "isConstant": isConstant,
+      "identifier": identifier,
+      "value": value == null ? {} : value!.toJson()
+    };
   }
 }
 
-class Expr extends Stmt {}
+class Expr extends Stmt {
+  @override
+  Map<String, dynamic> toJson() {
+    return {"type": "Expr", "kind": kind};
+  }
+}
 
 class AssignmentExpr extends Expr {
   NodeType kind = NodeType.assignmentExpr;
@@ -65,10 +78,12 @@ class AssignmentExpr extends Expr {
   AssignmentExpr(this.assigne, this.value);
 
   @override
-  String toString() {
-    return {"type": "AssignmentExpr", "assigne": assigne, "value": value}
-            .toString() +
-        '\n';
+  Map<String, dynamic> toJson() {
+    return {
+      "type": "AssignmentExpr",
+      "assigne": assigne.toJson(),
+      "value": value.toJson()
+    };
   }
 }
 
@@ -81,10 +96,13 @@ class BinaryExpr extends Expr {
   BinaryExpr(this.left, this.op, this.right);
 
   @override
-  String toString() {
-    return {"type": "BinaryExpr", "left": left, "op": op, "right": right}
-            .toString() +
-        '\n';
+  Map<String, dynamic> toJson() {
+    return {
+      "type": "BinaryExpr",
+      "left": left.toJson(),
+      "op": op,
+      "right": right.toJson()
+    };
   }
 }
 
@@ -95,8 +113,8 @@ class Identifier extends Expr {
   Identifier(this.symbol);
 
   @override
-  String toString() {
-    return {"type": "Identifier", "symbol": symbol}.toString();
+  Map<String, dynamic> toJson() {
+    return {"type": "Identifier", "symbol": symbol};
   }
 }
 
@@ -107,17 +125,21 @@ class NumericLiteral extends Expr {
   NumericLiteral(this.value);
 
   @override
-  String toString() {
-    return {"type": "NumericLiteral", "value": value}.toString() + '\n';
+  Map<String, dynamic> toJson() {
+    return {"type": "NumericLiteral", "value": value};
   }
 }
 
-void main() {
-  var program =
-      Program([BinaryExpr(NumericLiteral(1), '+', NumericLiteral(2))]);
+class BooleanLiteral extends Expr {
+  NodeType kind = NodeType.booleanLiteral;
+  late bool value;
 
-  console.printMessage(program.stmts[0].kind.toString());
-  console.printMessage((program.stmts[0] as BinaryExpr).left.kind.toString());
-  console.printMessage((program.stmts[0] as BinaryExpr).right.kind.toString());
-  console.printMessage((program.stmts[0] as BinaryExpr).op);
+  BooleanLiteral(String value) {
+    value == 'TRUE' ? this.value = true : this.value = false;
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {"type": "BooleanLiteral", "value": value};
+  }
 }

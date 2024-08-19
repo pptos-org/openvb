@@ -5,7 +5,7 @@ class Console {
 
   Console() {
     debugger =
-        web.document.querySelector('#debugger-content') as web.HTMLDivElement;
+        web.document.querySelector('#console-content') as web.HTMLDivElement;
   }
 
   Never printError(String message) {

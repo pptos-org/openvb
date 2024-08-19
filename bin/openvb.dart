@@ -28,4 +28,5 @@ void main(List<String> arguments) {
 
   var result = evaluate(program, env);
   console.printMessage(result.toString());
+  console.printMessage(program.toString());
 }

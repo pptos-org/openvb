@@ -23,6 +23,7 @@ run_web()
 
 build_web()
 {
+    rm -rf web/output
     init_webdev
     sh -c "webdev build --output=web/output"
 }

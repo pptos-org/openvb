@@ -13,7 +13,7 @@ class RuntimeVal {
 
   @override
   String toString() {
-    return '{ "type": "$type" }';
+    return {"type": type}.toString();
   }
 }
 
@@ -24,7 +24,7 @@ class NullVal extends RuntimeVal {
 
   @override
   String toString() {
-    return '{ "type": "$type", "value": "$value" }';
+    return {"type": "$type", "value": value}.toString();
   }
 }
 
@@ -35,6 +35,17 @@ class NumberVal extends RuntimeVal {
 
   @override
   String toString() {
-    return '{ "type": "$type", "value": "$value" }';
+    return {"type": "$type", "value": value}.toString();
+  }
+}
+
+class BooleanVal extends RuntimeVal {
+  final bool value;
+
+  BooleanVal(this.value) : super(ValueType('Boolean'));
+
+  @override
+  String toString() {
+    return {"type": type, "value": value}.toString();
   }
 }

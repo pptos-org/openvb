@@ -12,6 +12,8 @@ RuntimeVal evaluate(Stmt astNode, Enviroment env) {
       return NumberVal((astNode as NumericLiteral).value);
     case NodeType.nullLiteral:
       return NullVal();
+    case NodeType.booleanLiteral:
+      return BooleanVal((astNode as BooleanLiteral).value);
     case NodeType.identifier:
       return evaluateIdentifier(astNode as Identifier, env);
     case NodeType.assignmentExpr:

@@ -182,6 +182,10 @@ class Parser {
         expr = NumericLiteral(at().value);
         next();
         return expr;
+      case 'TRUE' || 'FALSE':
+        expr = BooleanLiteral(at().type);
+        next();
+        return expr;
       case 'LPAREN':
         eat();
         if (at().type == 'RPAREN') {

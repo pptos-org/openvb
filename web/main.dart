@@ -6,6 +6,13 @@ import 'package:openvb/openvb/values.dart';
 import 'package:openvb/openvb/interpreter.dart';
 import 'package:openvb/constants.dart';
 import 'package:openvb/console/console.dart';
+import 'dart:convert';
+
+String prettyJson(dynamic json) {
+  var spaces = ' ' * 4;
+  var encoder = JsonEncoder.withIndent(spaces);
+  return encoder.convert(json);
+}
 
 /*
 Const a As Integer = 5
@@ -14,16 +21,16 @@ Const c As Integer = 8 + b
 Const d As Integer = c
  */
 
-final editor = Editor();
-final console = Console();
+Editor editor = Editor();
+Console console = Console();
 
 void main() {
   final runCodeButton =
       web.document.querySelector('#run-code') as web.HTMLDivElement;
   final ereaseCodeButton =
       web.document.querySelector('#erease-code') as web.HTMLDivElement;
-  final infoBar = web.document.querySelector('#debugger-compile-time')
-      as web.HTMLDivElement;
+  final infoBar =
+      web.document.querySelector('#console-compile-time') as web.HTMLDivElement;
 
   runCodeButton.onClick.listen((event) {
     var compileTime = DateTime.now().millisecondsSinceEpoch;
@@ -54,6 +61,10 @@ void runCode() {
   RuntimeVal result = evaluate(program, env);
 
   console.printMessage(result.toString());
+
+  Map<String, dynamic> programJson = program.toJson();
+  // beautify json
+  console.printMessage(prettyJson(programJson));
 }
 
 class Editor {
