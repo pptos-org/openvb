@@ -33,8 +33,6 @@ header {
 }
 
 header {
-    display: flex;
-    flex-direction: row;
     background: var(--background-color);
     position: fixed;
     top: 0;
@@ -47,28 +45,6 @@ header {
 header img {
     height: 100%;
     margin-left: var(--logo-offset);
-}
-
-header #share {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    font-size: 1em;
-    font-weight: bolder;
-    padding: 10px;
-    margin: 0;
-    margin-left: auto;
-    margin-right: 30px;
-    align-self: center;
-    align-items: center;
-    background: var(--secondary-color);
-    color: var(--primary-color);
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-header #share:hover {
-    background: var(--tertiary-color);
 }
 
 #content {
@@ -115,7 +91,7 @@ header #share:hover {
 #console-wrapper {
     display: flex;
     flex-direction: column;
-    width: calc(100vw - var(--code-width));
+    width: 100%;
     background: var(--secondary-color);
 }
 
