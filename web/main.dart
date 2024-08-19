@@ -22,6 +22,7 @@ Const d As Integer = c
  */
 
 Editor editor = Editor();
+Share share = Share(editor);
 Console console = Console();
 
 void main() {
@@ -29,6 +30,8 @@ void main() {
       web.document.querySelector('#run-code') as web.HTMLDivElement;
   final ereaseCodeButton =
       web.document.querySelector('#erease-code') as web.HTMLDivElement;
+  final shareButton =
+      web.document.querySelector('#share') as web.HTMLDivElement;
   final infoBar =
       web.document.querySelector('#console-compile-time') as web.HTMLDivElement;
 
@@ -49,6 +52,13 @@ void main() {
 
   editor.setCode(
       'Const a As Integer = 5\nConst b = a + a + 8 + (5 + 8) * 10\nConst c As Integer = 8 + b\nConst d As Integer = c');
+
+  shareButton.onClick.listen((event) {
+    String url = share.getUrlFromCode();
+    web.window.navigator.clipboard.writeText(url); // copy to clipboard
+  });
+
+  share.setCodeFromUrl();
 }
 
 void runCode() {
@@ -65,6 +75,29 @@ void runCode() {
   Map<String, dynamic> programJson = program.toJson();
   // beautify json
   console.printMessage(prettyJson(programJson));
+}
+
+class Share {
+  late Editor editor;
+
+  Share(this.editor);
+
+  String getUrlFromCode() {
+    String root = web.window.location.href.split('?')[0];
+    String encodedCode = base64.encode(utf8.encode(editor.getCode()));
+
+    return '$root?code=$encodedCode';
+  }
+
+  void setCodeFromUrl() {
+    String url = web.window.location.href;
+    var uri = Uri.parse(url);
+    String? code = uri.queryParameters['code'];
+    if (code != null && code.isNotEmpty) {
+      String decodedCode = utf8.decode(base64.decode(code));
+      editor.setCode(decodedCode);
+    }
+  }
 }
 
 class Editor {
