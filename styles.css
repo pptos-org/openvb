@@ -5,10 +5,10 @@
     --header-border: 2px;
     --logo-offset: 80px;
 
-    /* debugger */
-    --debugger-content-padding: 10px;
-    --debugger-bar-height: 45px;
-    --debugger-infobar-height: 30px;
+    /* console */
+    --console-content-padding: 10px;
+    --console-bar-height: 45px;
+    --console-infobar-height: 30px;
 
     /* code */
 
@@ -33,6 +33,8 @@ header {
 }
 
 header {
+    display: flex;
+    flex-direction: row;
     background: var(--background-color);
     position: fixed;
     top: 0;
@@ -45,6 +47,28 @@ header {
 header img {
     height: 100%;
     margin-left: var(--logo-offset);
+}
+
+header #share {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-size: 1em;
+    font-weight: bolder;
+    padding: 10px;
+    margin: 0;
+    margin-left: auto;
+    margin-right: 30px;
+    align-self: center;
+    align-items: center;
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+header #share:hover {
+    background: var(--tertiary-color);
 }
 
 #content {
@@ -88,65 +112,65 @@ header img {
     background: var(--tertiary-color);
 }
 
-#debugger-wrapper {
+#console-wrapper {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: calc(100vw - var(--code-width));
     background: var(--secondary-color);
 }
 
-#debugger {
+#console {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: calc(
-        100% - var(--debugger-infobar-height) * 2 -
-            var(--debugger-content-padding)
+        100% - var(--console-infobar-height) * 2 -
+            var(--console-content-padding)
     );
     background: var(--primary-color);
 }
 
-#debugger-bar {
+#console-bar {
     width: 100%;
-    height: var(--debugger-bar-height);
+    height: var(--console-bar-height);
     border-bottom: var(--secondary-color) 2px solid;
     color: var(--secondary-color);
 }
 
-#debugger-bar p {
+#console-bar p {
     margin: 0;
     width: fit-content;
     padding-right: 30px;
     padding: 10px;
 }
-#debugger-infobar {
+#console-infobar {
     background: var(--secondary-color);
     color: var(--primary-color);
     width: 100%;
-    height: var(--debugger-infobar-height);
+    height: var(--console-infobar-height);
 }
 
-#debugger-infobar p {
+#console-infobar p {
     margin: 0;
     padding: 5px;
 }
 
-#debugger-content {
-    padding: var(--debugger-content-padding);
+#console-content {
+    padding: var(--console-content-padding);
     width: 100%;
     height: 100%;
     color: var(--background-color);
     overflow-y: scroll;
 }
 
-#debugger-content p {
+#console-content p {
     margin: 0;
 }
 
-#debugger-content .error {
+#console-content .error {
     color: red;
 }
 
-#debugger-content .warning {
+#console-content .warning {
     color: orange;
 }
