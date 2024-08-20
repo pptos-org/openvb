@@ -6,13 +6,7 @@ import 'package:openvb/openvb/values.dart';
 import 'package:openvb/openvb/interpreter.dart';
 import 'package:openvb/constants.dart';
 import 'package:openvb/console/console.dart';
-import 'dart:convert';
-
-String prettyJson(dynamic json) {
-  var spaces = ' ' * 4;
-  var encoder = JsonEncoder.withIndent(spaces);
-  return encoder.convert(json);
-}
+import 'package:openvb/util/json.dart';
 
 /*
 Const a As Integer = 5
@@ -22,7 +16,6 @@ Const d As Integer = c
  */
 
 Editor editor = Editor();
-Share share = Share(editor);
 Console console = Console();
 
 void main() {
@@ -54,11 +47,11 @@ void main() {
       'Const a As Integer = 5\nConst b = a + a + 8 + (5 + 8) * 10\nConst c As Integer = 8 + b\nConst d As Integer = c');
 
   shareButton.onClick.listen((event) {
-    String url = share.getUrlFromCode();
+    String url = editor.getUrlFromCode();
     web.window.navigator.clipboard.writeText(url); // copy to clipboard
   });
 
-  share.setCodeFromUrl();
+  editor.setCodeFromUrl();
 }
 
 void runCode() {
@@ -77,29 +70,6 @@ void runCode() {
   console.printMessage(prettyJson(programJson));
 }
 
-class Share {
-  late Editor editor;
-
-  Share(this.editor);
-
-  String getUrlFromCode() {
-    String root = web.window.location.href.split('?')[0];
-    String encodedCode = base64.encode(utf8.encode(editor.getCode()));
-
-    return '$root?code=$encodedCode';
-  }
-
-  void setCodeFromUrl() {
-    String url = web.window.location.href;
-    var uri = Uri.parse(url);
-    String? code = uri.queryParameters['code'];
-    if (code != null && code.isNotEmpty) {
-      String decodedCode = utf8.decode(base64.decode(code));
-      editor.setCode(decodedCode);
-    }
-  }
-}
-
 class Editor {
   late web.HTMLTextAreaElement editor;
 
@@ -113,5 +83,22 @@ class Editor {
 
   String getCode() {
     return editor.value;
+  }
+
+  String getUrlFromCode() {
+    String root = web.window.location.href.split('?')[0];
+    String encodedCode = base64Encode(getCode());
+
+    return '$root?code=$encodedCode';
+  }
+
+  void setCodeFromUrl() {
+    String url = web.window.location.href;
+    var uri = Uri.parse(url);
+    String? code = uri.queryParameters['code'];
+    if (code != null && code.isNotEmpty) {
+      String decodedCode = base64Decode(code);
+      setCode(decodedCode);
+    }
   }
 }

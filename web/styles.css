@@ -88,6 +88,7 @@ header #share:hover {
     font-family: "Courier New", monospace;
     font-size: 1.2em;
     color: var(--primary-color);
+    background: var(--background-color);
     margin-top: auto;
     height: 100%;
     min-width: var(--code-width);

@@ -18,7 +18,6 @@ enum NodeType {
 class Stmt {
   NodeType kind = NodeType.stmt;
 
-  @override
   Map<String, dynamic> toJson() {
     return {"type": "Stmt", "kind": kind};
   }
