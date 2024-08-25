@@ -10,13 +10,14 @@
     --console-bar-height: 45px;
     --console-infobar-height: 30px;
 
-    /* code */
-
-    --code-width: 70vw;
-
     /* content */
 
-    --code-width: 70vw;
+    --filesytem-width: 200px;
+    --code-width: calc(60vw - var(--header-border));
+    --console-width: calc(
+        100vw - var(--code-width) - var(--filesytem-width) -
+            var(--header-border)
+    );
 
     /* Colors */
     --primary-color: #35384d;
@@ -83,6 +84,76 @@ header #share:hover {
     width: 100vw;
 }
 
+#filesystem {
+    display: flex;
+    flex-direction: column;
+    width: var(--filesytem-width);
+    height: 100%;
+    background: var(--background-color);
+    border-right: var(--header-border) solid var(--primary-color);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#filesystem .hide {
+    display: none;
+}
+
+.filesystem-empty-wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    padding: 10px;
+    background: var(--background-color);
+    color: var(--primary-color);
+}
+
+.filesystem-empty-wrapper div {
+    background: var(--secondary-color);
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.filesystem-empty-wrapper div:hover {
+    background: var(--tertiary-color);
+}
+
+.filesystem-folder,
+.filesystem-file {
+    display: flex;
+    margin: 0;
+    margin-left: 10px;
+    flex-direction: column;
+    background: var(--background-color);
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.filesystem-folder p,
+.filesystem-file {
+    padding: 4px;
+    border-radius: 5px;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+}
+
+.filesystem-folder p,
+.filesystem-file p {
+    margin: 0;
+}
+
+.filesystem-folder p:hover,
+.filesystem-file:hover {
+    background: var(--tertiary-color);
+}
+
 #code {
     padding: 10px;
     font-family: "Courier New", monospace;
@@ -116,7 +187,7 @@ header #share:hover {
 #console-wrapper {
     display: flex;
     flex-direction: column;
-    width: calc(100vw - var(--code-width));
+    width: var(--console-width);
     background: var(--secondary-color);
 }
 

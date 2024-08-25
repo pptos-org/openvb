@@ -7,6 +7,8 @@ import 'package:openvb/openvb/interpreter.dart';
 import 'package:openvb/constants.dart';
 import 'package:openvb/console/console.dart';
 import 'package:openvb/util/json.dart';
+import 'package:openvb/web_filesystem/filesystem.dart';
+import 'package:openvb/web_editor/editor.dart';
 
 /*
 Const a As Integer = 5
@@ -15,10 +17,11 @@ Const c As Integer = 8 + b
 Const d As Integer = c
  */
 
+FileSystem fileSystem = FileSystem();
 Editor editor = Editor();
 Console console = Console();
 
-void main() {
+Future<void> main() async {
   final runCodeButton =
       web.document.querySelector('#run-code') as web.HTMLDivElement;
   final ereaseCodeButton =
@@ -43,15 +46,14 @@ void main() {
     console.clear();
   });
 
-  editor.setCode(
-      'Const a As Integer = 5\nConst b = a + a + 8 + (5 + 8) * 10\nConst c As Integer = 8 + b\nConst d As Integer = c');
-
   shareButton.onClick.listen((event) {
     String url = editor.getUrlFromCode();
     web.window.navigator.clipboard.writeText(url); // copy to clipboard
   });
 
   editor.setCodeFromUrl();
+
+  fileSystem.displayAsEmpty();
 }
 
 void runCode() {
@@ -68,37 +70,4 @@ void runCode() {
   Map<String, dynamic> programJson = program.toJson();
   // beautify json
   console.printMessage(prettyJson(programJson));
-}
-
-class Editor {
-  late web.HTMLTextAreaElement editor;
-
-  Editor() {
-    editor = web.document.querySelector('#code') as web.HTMLTextAreaElement;
-  }
-
-  void setCode(String code) {
-    editor.value = code;
-  }
-
-  String getCode() {
-    return editor.value;
-  }
-
-  String getUrlFromCode() {
-    String root = web.window.location.href.split('?')[0];
-    String encodedCode = base64Encode(getCode());
-
-    return '$root?code=$encodedCode';
-  }
-
-  void setCodeFromUrl() {
-    String url = web.window.location.href;
-    var uri = Uri.parse(url);
-    String? code = uri.queryParameters['code'];
-    if (code != null && code.isNotEmpty) {
-      String decodedCode = base64Decode(code);
-      setCode(decodedCode);
-    }
-  }
 }
