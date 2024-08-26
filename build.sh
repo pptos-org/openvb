@@ -24,8 +24,10 @@ run_web()
 build_web()
 {
     rm -rf web/output
-    init_webdev
-    sh -c "webdev build --output=web/output"
+    #sh -c "webdev build --output=web/output"
+    mkdir -p web/output
+    sh -c "dart compile wasm -o web/output/main.wasm web/main.dart"
+    cp web/index.html web/styles.css web/main.dart.js web/output/
 }
 
 build_native()

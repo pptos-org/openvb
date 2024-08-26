@@ -7,7 +7,6 @@ import 'package:openvb/openvb/interpreter.dart';
 import 'package:openvb/constants.dart';
 import 'package:openvb/console/console.dart';
 import 'package:openvb/util/json.dart';
-import 'package:openvb/web_filesystem/filesystem.dart';
 import 'package:openvb/web_editor/editor.dart';
 
 /*
@@ -17,7 +16,6 @@ Const c As Integer = 8 + b
 Const d As Integer = c
  */
 
-FileSystem fileSystem = FileSystem();
 Editor editor = Editor();
 Console console = Console();
 
@@ -52,8 +50,6 @@ Future<void> main() async {
   });
 
   editor.setCodeFromUrl();
-
-  fileSystem.displayAsEmpty();
 }
 
 void runCode() {

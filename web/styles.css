@@ -1,9 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 :root {
-    --header-height: 80px;
+    --header-height: 30px;
     --header-border: 2px;
-    --logo-offset: 80px;
 
     /* console */
     --console-content-padding: 10px;
@@ -12,14 +11,11 @@
 
     /* content */
 
-    --filesytem-width: 200px;
     --code-width: calc(60vw - var(--header-border));
-    --console-width: calc(
-        100vw - var(--code-width) - var(--filesytem-width) -
-            var(--header-border)
-    );
+    --console-width: calc(100vw - var(--code-width));
 
     /* Colors */
+    --primary-color-scrollbar: #696a96;
     --primary-color: #35384d;
     --secondary-color: #b1b9ff;
     --tertiary-color: #d1d6ff;
@@ -47,28 +43,29 @@ header {
 
 header img {
     height: 100%;
-    margin-left: var(--logo-offset);
+    border-right: var(--header-border) solid var(--primary-color);
 }
 
-header #share {
+#header-buttons-group {
     display: flex;
     flex-direction: row;
-    gap: 10px;
-    font-size: 1em;
-    font-weight: bolder;
-    padding: 10px;
-    margin: 0;
     margin-left: auto;
-    margin-right: 30px;
-    align-self: center;
-    align-items: center;
-    background: var(--secondary-color);
-    color: var(--primary-color);
-    cursor: pointer;
-    border-radius: 10px;
 }
 
-header #share:hover {
+header .header-button {
+    display: flex;
+    font-size: 16px;
+    font-weight: bolder;
+    padding: 3px;
+    margin: 0;
+    align-self: center;
+    align-items: center;
+    color: var(--primary-color);
+    cursor: pointer;
+    border-left: var(--header-border) solid var(--primary-color);
+}
+
+header .header-button:hover {
     background: var(--tertiary-color);
 }
 
@@ -84,89 +81,50 @@ header #share:hover {
     width: 100vw;
 }
 
-#filesystem {
+#code-wrapper {
     display: flex;
-    flex-direction: column;
-    width: var(--filesytem-width);
-    height: 100%;
+    flex-direction: row;
+    width: var(--code-width);
     background: var(--background-color);
-    border-right: var(--header-border) solid var(--primary-color);
-    overflow-x: hidden;
     overflow-y: auto;
 }
 
-#filesystem .hide {
-    display: none;
-}
-
-.filesystem-empty-wrapper {
+#code-line-numbers {
     display: flex;
     flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-    padding: 10px;
-    background: var(--background-color);
-    color: var(--primary-color);
+    padding-bottom: 10px;
+    width: 40px;
+    height: 100%;
 }
 
-.filesystem-empty-wrapper div {
-    background: var(--secondary-color);
-    cursor: pointer;
-    border-radius: 10px;
-    padding: 5px;
-}
-
-.filesystem-empty-wrapper div:hover {
-    background: var(--tertiary-color);
-}
-
-.filesystem-folder,
-.filesystem-file {
-    display: flex;
+#code-line-numbers p {
+    padding-left: 10px;
+    padding-right: 10px;
     margin: 0;
-    margin-left: 10px;
-    flex-direction: column;
-    background: var(--background-color);
-    color: var(--primary-color);
-    cursor: pointer;
+    font-family: "Courier New", monospace;
+    font-size: 1.2em;
 }
 
-.filesystem-folder p,
-.filesystem-file {
-    padding: 4px;
-    border-radius: 5px;
-    width: fit-content;
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    align-items: center;
-}
-
-.filesystem-folder p,
-.filesystem-file p {
-    margin: 0;
-}
-
-.filesystem-folder p:hover,
-.filesystem-file:hover {
-    background: var(--tertiary-color);
+.selected-line-number {
+    background: var(--primary-color);
+    color: var(--background-color);
 }
 
 #code {
     padding: 10px;
+    padding-top: 0;
     font-family: "Courier New", monospace;
     font-size: 1.2em;
     color: var(--primary-color);
     background: var(--background-color);
     margin-top: auto;
     height: 100%;
-    min-width: var(--code-width);
+    width: 100%;
     border: none;
     border-right: var(--header-border) solid var(--primary-color);
     resize: none;
     outline: none;
+    overflow-y: hidden;
 }
 
 #toolbar {
@@ -245,4 +203,26 @@ header #share:hover {
 
 #console-content .warning {
     color: orange;
+}
+
+/* scrollbar */
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color-scrollbar);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }

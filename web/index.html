@@ -20,16 +20,24 @@
     <body>
         <header>
             <img
-                src="https://raw.githubusercontent.com/pptos-org/artwork/main/logo/PPTOS_LOGO_2024_TEXT.svg"
+                src="https://raw.githubusercontent.com/pptos-org/artwork/main/logo/PPTOS_LOGO_2024.svg"
+                id="logo"
                 alt="logo"
             />
-            <div id="share">
-                Share<span class="material-symbols-outlined"> send </span>
+            <div id="header-buttons-group">
+                <div id="share" class="header-button">
+                    <span class="material-symbols-outlined"> share </span>
+                </div>
+                <div id="settings" class="header-button">
+                    <span class="material-symbols-outlined"> settings </span>
+                </div>
             </div>
         </header>
         <div id="content">
-            <div id="filesystem"></div>
-            <textarea id="code"></textarea>
+            <div id="code-wrapper">
+                <div id="code-line-numbers"></div>
+                <textarea id="code"></textarea>
+            </div>
             <div id="console-wrapper">
                 <div id="toolbar">
                     <span id="run-code" class="material-symbols-outlined"
